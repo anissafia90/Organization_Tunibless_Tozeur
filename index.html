@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TuniBless Tozeur</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Playfair+Display:wght@400;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--sand:#C8A96E;--sand-light:#EDD9A3;--sand-dark:#8B6914;
+--desert:#6B3E0F;--sky:#1A5F8A;--sky-light:#2980B9;
+--green:#2D6A4F;--white:#FEFAF4;--dark:#1C1208;
+--text:#2C1A0A;--muted:#7A5C3A;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--white);color:var(--text);overflow-x:hidden}
+
+/* LANGUAGE SWITCHER */
+.lang-bar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(28,18,8,0.95);backdrop-filter:blur(8px);display:flex;justify-content:space-between;align-items:center;padding:10px 40px}
+.lang-bar .logo-sm{color:var(--sand);font-size:14px;font-weight:700;letter-spacing:2px}
+.lang-btns{display:flex;gap:6px}
+.lang-btn{background:transparent;border:1px solid rgba(200,169,110,0.4);color:var(--sand-light);padding:5px 14px;border-radius:20px;cursor:pointer;font-size:12px;font-weight:500;transition:all 0.3s;font-family:'Tajawal',sans-serif}
+.lang-btn:hover,.lang-btn.active{background:var(--sand);color:var(--dark);border-color:var(--sand)}
+
+/* HERO */
+.hero{min-height:100vh;background:linear-gradient(170deg,#1C1208 0%,#3D2206 40%,#6B3E0F 70%,#8B6914 100%);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;padding-top:50px}
+.dunes-bg{position:absolute;bottom:0;left:0;right:0;height:45%;opacity:0.3}
+.stars{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none}
+.star{position:absolute;width:2px;height:2px;background:var(--sand-light);border-radius:50%;animation:twinkle 3s infinite}
+@keyframes twinkle{0%,100%{opacity:0.3}50%{opacity:1}}
+.hero-content{position:relative;z-index:2;text-align:center;padding:40px 20px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,169,110,0.15);border:1px solid rgba(200,169,110,0.4);color:var(--sand);padding:8px 20px;border-radius:30px;font-size:13px;font-weight:500;margin-bottom:30px;letter-spacing:1px}
+.hero h1{font-family:'Tajawal',sans-serif;font-size:clamp(42px,7vw,80px);font-weight:800;color:var(--white);line-height:1.1;margin-bottom:16px}
+.hero h1 span{color:var(--sand)}
+.hero-sub{font-size:clamp(16px,2.5vw,22px);color:rgba(254,250,244,0.7);max-width:600px;margin:0 auto 40px;line-height:1.7;font-weight:300}
+.hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--sand);color:var(--dark);padding:14px 32px;border-radius:50px;font-weight:700;font-size:15px;text-decoration:none;font-family:'Tajawal',sans-serif;transition:all 0.3s;border:none;cursor:pointer}
+.btn-primary:hover{background:var(--sand-light);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--sand);padding:14px 32px;border-radius:50px;font-weight:500;font-size:15px;text-decoration:none;font-family:'Tajawal',sans-serif;transition:all 0.3s;border:1px solid rgba(200,169,110,0.5);cursor:pointer}
+.btn-outline:hover{background:rgba(200,169,110,0.1)}
+.scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);color:var(--sand);opacity:0.5;font-size:13px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.scroll-arrow{width:20px;height:20px;border-right:2px solid var(--sand);border-bottom:2px solid var(--sand);transform:rotate(45deg);animation:bounce 1.5s infinite}
+@keyframes bounce{0%,100%{transform:rotate(45deg) translateY(0)}50%{transform:rotate(45deg) translateY(4px)}}
+
+/* STATS BAR */
+.stats-bar{background:var(--dark);padding:40px;display:flex;justify-content:center;gap:60px;flex-wrap:wrap}
+.stat-item{text-align:center}
+.stat-num{font-size:36px;font-weight:800;color:var(--sand);font-family:'Tajawal',sans-serif}
+.stat-label{font-size:13px;color:rgba(254,250,244,0.5);margin-top:4px;font-weight:300}
+
+/* SECTIONS */
+section{padding:80px 40px}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-tag{display:inline-block;background:rgba(200,169,110,0.12);color:var(--sand-dark);padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;letter-spacing:2px;margin-bottom:16px;border:1px solid rgba(200,169,110,0.3)}
+.section-title{font-size:clamp(28px,4vw,44px);font-weight:800;color:var(--dark);margin-bottom:16px;line-height:1.2}
+.section-desc{font-size:17px;color:var(--muted);line-height:1.8;max-width:650px;font-weight:300}
+
+/* ABOUT */
+#about{background:var(--white)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:50px}
+.about-visual{position:relative}
+.oasis-card{background:linear-gradient(135deg,#2D6A4F,#1A5F8A);border-radius:20px;padding:40px;color:white;text-align:center;position:relative;overflow:hidden}
+.oasis-icon{font-size:64px;margin-bottom:16px}
+.oasis-card h3{font-size:22px;font-weight:700;margin-bottom:8px}
+.oasis-card p{font-size:14px;opacity:0.8;font-weight:300;line-height:1.6}
+.float-tag{position:absolute;background:var(--sand);color:var(--dark);padding:8px 16px;border-radius:30px;font-size:12px;font-weight:700;white-space:nowrap}
+.float-tag.top{top:-12px;right:20px}
+.float-tag.bottom{bottom:-12px;left:20px}
+.about-points{display:flex;flex-direction:column;gap:20px;margin-top:30px}
+.point{display:flex;gap:16px;align-items:flex-start}
+.point-icon{width:44px;height:44px;border-radius:12px;background:rgba(200,169,110,0.15);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;border:1px solid rgba(200,169,110,0.3)}
+.point-text h4{font-size:16px;font-weight:600;color:var(--dark);margin-bottom:4px}
+.point-text p{font-size:14px;color:var(--muted);font-weight:300;line-height:1.6}
+
+/* ACTIONS */
+#actions{background:#FAF6EE}
+.actions-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:50px}
+.action-card{background:white;border-radius:16px;overflow:hidden;border:1px solid rgba(200,169,110,0.2);transition:all 0.3s;cursor:pointer}
+.action-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(107,62,15,0.12)}
+.action-img{height:180px;display:flex;align-items:center;justify-content:center;font-size:60px;position:relative;overflow:hidden}
+.action-img.green{background:linear-gradient(135deg,#2D6A4F20,#2D6A4F40)}
+.action-img.blue{background:linear-gradient(135deg,#1A5F8A20,#1A5F8A40)}
+.action-img.sand{background:linear-gradient(135deg,#C8A96E20,#C8A96E40)}
+.action-img.desert{background:linear-gradient(135deg,#6B3E0F20,#6B3E0F40)}
+.action-body{padding:24px}
+.action-tag{display:inline-block;background:rgba(200,169,110,0.12);color:var(--sand-dark);padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:1px;margin-bottom:12px}
+.action-card h3{font-size:17px;font-weight:700;color:var(--dark);margin-bottom:8px}
+.action-card p{font-size:13px;color:var(--muted);line-height:1.7;font-weight:300}
+.action-meta{display:flex;justify-content:space-between;margin-top:16px;padding-top:16px;border-top:1px solid rgba(200,169,110,0.2)}
+.action-meta span{font-size:12px;color:var(--muted)}
+.action-meta strong{font-size:12px;color:var(--sky)}
+
+/* STRUCTURE */
+#structure{background:var(--dark)}
+#structure .section-title{color:var(--white)}
+#structure .section-desc{color:rgba(254,250,244,0.6)}
+#structure .section-tag{background:rgba(200,169,110,0.15);color:var(--sand);border-color:rgba(200,169,110,0.3)}
+.org-tree{margin-top:50px;display:flex;flex-direction:column;align-items:center;gap:0}
+.org-level{display:flex;justify-content:center;gap:20px;position:relative;flex-wrap:wrap}
+.org-node{background:rgba(255,255,255,0.06);border:1px solid rgba(200,169,110,0.2);border-radius:12px;padding:16px 24px;text-align:center;position:relative}
+.org-node.national{background:linear-gradient(135deg,rgba(200,169,110,0.2),rgba(200,169,110,0.1));border-color:var(--sand);min-width:200px}
+.org-node.regional{min-width:160px}
+.org-node.local{min-width:140px;background:rgba(26,95,138,0.15);border-color:rgba(26,95,138,0.4)}
+.org-node h4{font-size:13px;font-weight:700;color:var(--white);margin-bottom:4px}
+.org-node span{font-size:11px;color:rgba(254,250,244,0.4)}
+.org-connector{width:2px;height:30px;background:rgba(200,169,110,0.3);margin:0 auto}
+.org-h-line{height:1px;background:rgba(200,169,110,0.3);width:80%;margin:0 auto}
+
+/* PARTNERS */
+#partners{background:var(--white)}
+.partner-intro{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:50px}
+.partner-appeal{background:linear-gradient(135deg,#1C1208,#3D2206);border-radius:20px;padding:40px;color:white}
+.partner-appeal h3{font-size:22px;font-weight:700;color:var(--sand);margin-bottom:16px}
+.partner-appeal p{font-size:14px;color:rgba(254,250,244,0.7);line-height:1.8;margin-bottom:20px;font-weight:300}
+.partner-benefits{display:flex;flex-direction:column;gap:12px}
+.benefit{display:flex;gap:12px;align-items:flex-start}
+.benefit-dot{width:8px;height:8px;background:var(--sand);border-radius:50%;margin-top:6px;flex-shrink:0}
+.benefit p{font-size:14px;color:rgba(254,250,244,0.7);font-weight:300;line-height:1.6}
+.partner-form h3{font-size:22px;font-weight:700;color:var(--dark);margin-bottom:24px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 16px;border:1px solid rgba(200,169,110,0.3);border-radius:10px;background:rgba(200,169,110,0.05);font-family:'Tajawal',sans-serif;font-size:14px;color:var(--text);transition:border 0.3s;outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--sand)}
+.form-group textarea{height:100px;resize:vertical}
+.submit-btn{width:100%;background:linear-gradient(135deg,var(--sand),var(--sand-dark));color:white;border:none;padding:14px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif;transition:all 0.3s}
+.submit-btn:hover{transform:translateY(-2px)}
+
+/* CONTACT */
+#contact{background:#FAF6EE}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:50px}
+.contact-card{background:white;border-radius:16px;padding:30px;text-align:center;border:1px solid rgba(200,169,110,0.2);transition:all 0.3s}
+.contact-card:hover{transform:translateY(-3px)}
+.contact-icon{width:56px;height:56px;border-radius:14px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:24px}
+.contact-card h4{font-size:16px;font-weight:700;color:var(--dark);margin-bottom:8px}
+.contact-card p{font-size:13px;color:var(--muted);font-weight:300;line-height:1.6}
+.contact-card a{color:var(--sky);text-decoration:none;font-size:13px;font-weight:500}
+
+/* FOOTER */
+footer{background:var(--dark);padding:50px 40px 30px;text-align:center}
+.footer-logo{font-size:28px;font-weight:800;color:var(--sand);margin-bottom:8px;font-family:'Tajawal',sans-serif}
+.footer-sub{font-size:13px;color:rgba(254,250,244,0.4);margin-bottom:30px}
+.footer-flags{display:flex;justify-content:center;gap:20px;margin-bottom:30px;flex-wrap:wrap}
+.flag-link{display:flex;align-items:center;gap:8px;color:rgba(254,250,244,0.5);text-decoration:none;font-size:13px;transition:color 0.3s}
+.flag-link:hover{color:var(--sand)}
+.footer-copy{font-size:12px;color:rgba(254,250,244,0.2)}
+
+/* NAV */
+nav{position:fixed;top:50px;left:0;right:0;z-index:999;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;transition:all 0.3s}
+nav.scrolled{background:rgba(28,18,8,0.95);backdrop-filter:blur(8px);border-bottom:1px solid rgba(200,169,110,0.1)}
+.nav-logo{font-size:22px;font-weight:800;color:var(--sand);font-family:'Tajawal',sans-serif}
+.nav-links{display:flex;gap:28px}
+.nav-links a{color:rgba(254,250,244,0.7);text-decoration:none;font-size:14px;font-weight:400;transition:color 0.3s;font-family:'Tajawal',sans-serif}
+.nav-links a:hover{color:var(--sand)}
+
+/* MULTILINGUAL */
+[data-lang]{display:none}
+body[data-active-lang="ar"] [data-lang="ar"]{display:block}
+body[data-active-lang="en"] [data-lang="en"]{display:block}
+body[data-active-lang="de"] [data-lang="de"]{display:block}
+body[data-active-lang="ar"] [data-lang-inline="ar"]{display:inline}
+body[data-active-lang="en"] [data-lang-inline="en"]{display:inline}
+body[data-active-lang="de"] [data-lang-inline="de"]{display:inline}
+[data-lang-inline]{display:none}
+
+/* RTL/LTR */
+body[data-active-lang="ar"]{direction:rtl}
+body[data-active-lang="en"],[data-active-lang="de"]{direction:ltr}
+
+@media(max-width:768px){
+.about-grid,.partner-intro{grid-template-columns:1fr}
+.contact-grid{grid-template-columns:1fr}
+.stats-bar{gap:30px}
+section{padding:60px 20px}
+nav{padding:12px 20px}
+.lang-bar{padding:8px 20px}
+.nav-links{display:none}
+}
+</style>
+</head>
+<body data-active-lang="ar">
+
+<!-- LANG BAR -->
+<div class="lang-bar">
+  <div class="logo-sm">TuniBless Tozeur</div>
+  <div class="lang-btns">
+    <button class="lang-btn active" onclick="setLang('ar','rtl',this)">العربية</button>
+    <button class="lang-btn" onclick="setLang('en','ltr',this)">English</button>
+    <button class="lang-btn" onclick="setLang('de','ltr',this)">Deutsch</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-logo">TuniBless <span style="color:rgba(254,250,244,0.4)">|</span> توزر</div>
+  <div class="nav-links">
+    <a href="#about" data-lang-inline="ar">من نحن</a>
+    <a href="#about" data-lang-inline="en">About</a>
+    <a href="#about" data-lang-inline="de">Über uns</a>
+    <a href="#actions" data-lang-inline="ar">أعمالنا</a>
+    <a href="#actions" data-lang-inline="en">Activities</a>
+    <a href="#actions" data-lang-inline="de">Aktivitäten</a>
+    <a href="#partners" data-lang-inline="ar">شراكات</a>
+    <a href="#partners" data-lang-inline="en">Partners</a>
+    <a href="#partners" data-lang-inline="de">Partner</a>
+    <a href="#contact" data-lang-inline="ar">تواصل</a>
+    <a href="#contact" data-lang-inline="en">Contact</a>
+    <a href="#contact" data-lang-inline="de">Kontakt</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <!-- Stars -->
+  <div class="stars" id="stars"></div>
+  <!-- Dune SVG -->
+  <svg class="dunes-bg" viewBox="0 0 1440 400" preserveAspectRatio="none">
+    <path d="M0,300 C200,200 400,350 600,280 C800,210 1000,320 1200,250 C1300,215 1380,260 1440,240 L1440,400 L0,400 Z" fill="rgba(200,169,110,0.4)"/>
+    <path d="M0,340 C300,260 500,380 700,310 C900,240 1100,360 1300,290 L1440,280 L1440,400 L0,400 Z" fill="rgba(139,105,20,0.5)"/>
+    <path d="M0,370 C400,300 600,400 900,350 C1100,310 1300,380 1440,350 L1440,400 L0,400 Z" fill="rgba(107,62,15,0.7)"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span>🌴</span>
+      <span data-lang-inline="ar">واحة التطوع — توزر</span>
+      <span data-lang-inline="en">Oasis of Volunteering — Tozeur</span>
+      <span data-lang-inline="de">Oase des Ehrenamts — Tozeur</span>
+    </div>
+    
+    <h1 data-lang="ar">
+      <span>TuniBless</span><br>توزر 🇹🇳
+    </h1>
+    <h1 data-lang="en">
+      <span>TuniBless</span><br>Tozeur 🇹🇳
+    </h1>
+    <h1 data-lang="de">
+      <span>TuniBless</span><br>Tozeur 🇹🇳
+    </h1>
+
+    <p class="hero-sub" data-lang="ar">نربط شباب توزر بألمانيا من خلال العمل التطوعي — إرشاد مجاني، شراكات دولية، وبناء مستقبل أفضل</p>
+    <p class="hero-sub" data-lang="en">Connecting Tozeur's youth to Germany through volunteering — free guidance, international partnerships, and a brighter future</p>
+    <p class="hero-sub" data-lang="de">Jugendliche aus Tozeur mit Deutschland verbinden — durch Ehrenamt, kostenlose Beratung und internationale Partnerschaften</p>
+
+    <div class="hero-cta">
+      <a href="#actions" class="btn-primary">
+        <span data-lang-inline="ar">اكتشف أعمالنا</span>
+        <span data-lang-inline="en">Our Activities</span>
+        <span data-lang-inline="de">Unsere Aktivitäten</span>
+      </a>
+      <a href="#partners" class="btn-outline">
+        <span data-lang-inline="ar">كن شريكًا</span>
+        <span data-lang-inline="en">Become a Partner</span>
+        <span data-lang-inline="de">Partner werden</span>
+      </a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">29K+</div>
+    <div class="stat-label" data-lang-inline="ar">شاب تونسي مرافَق</div>
+    <div class="stat-label" data-lang-inline="en">Youth accompanied</div>
+    <div class="stat-label" data-lang-inline="de">Begleitete Jugendliche</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">24</div>
+    <div class="stat-label" data-lang-inline="ar">فرع جهوي</div>
+    <div class="stat-label" data-lang-inline="en">Regional branches</div>
+    <div class="stat-label" data-lang-inline="de">Regionale Zweige</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100%</div>
+    <div class="stat-label" data-lang-inline="ar">مجاني وغير ربحي</div>
+    <div class="stat-label" data-lang-inline="en">Free & non-profit</div>
+    <div class="stat-label" data-lang-inline="de">Kostenlos & gemeinnützig</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">2021</div>
+    <div class="stat-label" data-lang-inline="ar">سنة التأسيس</div>
+    <div class="stat-label" data-lang-inline="en">Founded</div>
+    <div class="stat-label" data-lang-inline="de">Gegründet</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div style="text-align:center">
+      <div class="section-tag" data-lang-inline="ar">من نحن</div>
+      <div class="section-tag" data-lang-inline="en">About us</div>
+      <div class="section-tag" data-lang-inline="de">Über uns</div>
+    </div>
+    <div class="about-grid">
+      <div>
+        <h2 class="section-title" data-lang="ar">جمعية تُنيبلس فرع توزر</h2>
+        <h2 class="section-title" data-lang="en">TuniBless Tozeur Branch</h2>
+        <h2 class="section-title" data-lang="de">TuniBless Zweig Tozeur</h2>
+        
+        <p class="section-desc" data-lang="ar">جمعية غير ربحية تأسست عام 2021، تُقدم إرشادًا مجانيًا للشباب التونسي الراغب في الدراسة والعمل في ألمانيا. فرع توزر ينشط في الجنوب الغربي بقلب واحة الصحراء.</p>
+        <p class="section-desc" data-lang="en">A non-profit founded in 2021, offering free guidance to Tunisian youth seeking to study or work in Germany. The Tozeur branch serves the Southwest region, at the heart of the Saharan oasis.</p>
+        <p class="section-desc" data-lang="de">Eine 2021 gegründete gemeinnützige Organisation, die jungen Tunesiern kostenlose Beratung für Studium und Arbeit in Deutschland bietet. Der Zweig Tozeur dient der Südwestregion in der Sahara-Oase.</p>
+        
+        <div class="about-points">
+          <div class="point">
+            <div class="point-icon">🌐</div>
+            <div class="point-text">
+              <h4 data-lang-inline="ar">إرشاد مجاني متخصص</h4>
+              <h4 data-lang-inline="en">Free specialized guidance</h4>
+              <h4 data-lang-inline="de">Kostenlose Fachberatung</h4>
+              <p data-lang="ar">مسار مخصص لكل شاب حسب مستواه وطموحاته، من الإعدادي إلى الجامعي</p>
+              <p data-lang="en">Personalized pathway for each youth, from middle school to university level</p>
+              <p data-lang="de">Individueller Weg für jeden Jugendlichen, vom Mittelschul- bis Universitätsniveau</p>
+            </div>
+          </div>
+          <div class="point">
+            <div class="point-icon">🏆</div>
+            <div class="point-text">
+              <h4 data-lang-inline="ar">التطوع يفتح الأبواب</h4>
+              <h4 data-lang-inline="en">Volunteering opens doors</h4>
+              <h4 data-lang-inline="de">Ehrenamt öffnet Türen</h4>
+              <p data-lang="ar">التجربة التطوعية في تونس تُعزز ملف كل مترشح لألمانيا التي تُقدّر هذا العمل كثيرًا</p>
+              <p data-lang="en">Volunteer experience in Tunisia strengthens every candidate's profile for Germany, where such work is highly valued</p>
+              <p data-lang="de">Ehrenamtserfahrung in Tunesien stärkt jedes Bewerberprofil für Deutschland, wo diese Arbeit sehr geschätzt wird</p>
+            </div>
+          </div>
+          <div class="point">
+            <div class="point-icon">🤝</div>
+            <div class="point-text">
+              <h4 data-lang-inline="ar">شبكة منسقين محلية</h4>
+              <h4 data-lang-inline="en">Local coordinator network</h4>
+              <h4 data-lang-inline="de">Lokales Koordinatornetz</h4>
+              <p data-lang="ar">منسق جهوي + منسقون محليون في كل ولاية تحت إشراف منسقة وطنية</p>
+              <p data-lang="en">Regional coordinator + local coordinators in every region under a national coordinator</p>
+              <p data-lang="de">Regionalkoordinator + lokale Koordinatoren in jeder Region unter einer nationalen Koordinatorin</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div style="position:relative">
+          <div class="oasis-card">
+            <div class="oasis-icon">🏜️</div>
+            <h3 data-lang-inline="ar">توزر — واحة الإمكانيات</h3>
+            <h3 data-lang-inline="en">Tozeur — Oasis of Possibilities</h3>
+            <h3 data-lang-inline="de">Tozeur — Oase der Möglichkeiten</h3>
+            <p data-lang="ar">قلب الصحراء الجنوبية التونسية، بين النخيل والتاريخ، يولد شباب يحلمون بتغيير العالم</p>
+            <p data-lang="en">In the heart of Tunisia's southern desert, among palms and history, youth with dreams of changing the world</p>
+            <p data-lang="de">Im Herzen der tunesischen Südwüste, zwischen Palmen und Geschichte, Jugendliche mit dem Traum, die Welt zu verändern</p>
+            <div class="float-tag top" data-lang-inline="ar">🇹🇳 تونس → 🇩🇪 ألمانيا</div>
+            <div class="float-tag top" data-lang-inline="en">🇹🇳 Tunisia → 🇩🇪 Germany</div>
+            <div class="float-tag top" data-lang-inline="de">🇹🇳 Tunesien → 🇩🇪 Deutschland</div>
+            <div class="float-tag bottom" data-lang-inline="ar">إرشاد مجاني 100%</div>
+            <div class="float-tag bottom" data-lang-inline="en">100% Free Guidance</div>
+            <div class="float-tag bottom" data-lang-inline="de">100% kostenlose Beratung</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIONS -->
+<section id="actions">
+  <div class="section-inner">
+    <div style="text-align:center">
+      <div class="section-tag" data-lang-inline="ar">أعمالنا التطوعية</div>
+      <div class="section-tag" data-lang-inline="en">Our volunteer work</div>
+      <div class="section-tag" data-lang-inline="de">Unsere ehrenamtliche Arbeit</div>
+      <h2 class="section-title" style="margin:12px 0" data-lang="ar">ما نقوم به في جهة توزر</h2>
+      <h2 class="section-title" style="margin:12px 0" data-lang="en">What we do in Tozeur</h2>
+      <h2 class="section-title" style="margin:12px 0" data-lang="de">Was wir in Tozeur tun</h2>
+      <p class="section-desc" style="margin:0 auto" data-lang="ar">أنشطتنا التطوعية الميدانية تُجهز الشباب لرحلتهم نحو ألمانيا</p>
+      <p class="section-desc" style="margin:0 auto" data-lang="en">Our field volunteer activities prepare youth for their journey to Germany</p>
+      <p class="section-desc" style="margin:0 auto" data-lang="de">Unsere ehrenamtlichen Aktivitäten bereiten Jugendliche auf ihre Reise nach Deutschland vor</p>
+    </div>
+    <div class="actions-grid">
+      <div class="action-card">
+        <div class="action-img green">📚</div>
+        <div class="action-body">
+          <div class="action-tag" data-lang-inline="ar">تعليم • اللغة</div>
+          <div class="action-tag" data-lang-inline="en">Education • Language</div>
+          <div class="action-tag" data-lang-inline="de">Bildung • Sprache</div>
+          <h3 data-lang="ar">دروس اللغة الألمانية المجانية</h3>
+          <h3 data-lang="en">Free German Language Classes</h3>
+          <h3 data-lang="de">Kostenloser Deutschunterricht</h3>
+          <p data-lang="ar">جلسات تعليمية أسبوعية بمشاركة متطوعين لتعليم أساسيات اللغة الألمانية للشباب</p>
+          <p data-lang="en">Weekly educational sessions with volunteers teaching German language basics to youth</p>
+          <p data-lang="de">Wöchentliche Lerneinheiten mit Freiwilligen, die Jugendlichen Grundlagen der deutschen Sprache beibringen</p>
+          <div class="action-meta">
+            <span data-lang-inline="ar">📍 توزر</span>
+            <span data-lang-inline="en">📍 Tozeur</span>
+            <span data-lang-inline="de">📍 Tozeur</span>
+            <strong data-lang-inline="ar">مستمر</strong>
+            <strong data-lang-inline="en">Ongoing</strong>
+            <strong data-lang-inline="de">Laufend</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-card">
+        <div class="action-img blue">💼</div>
+        <div class="action-body">
+          <div class="action-tag" data-lang-inline="ar">توظيف • إرشاد</div>
+          <div class="action-tag" data-lang-inline="en">Employment • Guidance</div>
+          <div class="action-tag" data-lang-inline="de">Beschäftigung • Beratung</div>
+          <h3 data-lang="ar">ورشات إعداد ملفات الهجرة</h3>
+          <h3 data-lang="en">Migration File Preparation Workshops</h3>
+          <h3 data-lang="de">Workshops zur Vorbereitung von Einwanderungsakten</h3>
+          <p data-lang="ar">إرشاد شخصي لإعداد ملف الطالب أو العامل الراغب في التوجه نحو ألمانيا</p>
+          <p data-lang="en">Personal guidance to prepare files for students and workers heading to Germany</p>
+          <p data-lang="de">Persönliche Beratung zur Vorbereitung von Unterlagen für Schüler und Arbeitnehmer in Richtung Deutschland</p>
+          <div class="action-meta">
+            <span data-lang-inline="ar">👥 مجموعات</span>
+            <span data-lang-inline="en">👥 Groups</span>
+            <span data-lang-inline="de">👥 Gruppen</span>
+            <strong data-lang-inline="ar">شهري</strong>
+            <strong data-lang-inline="en">Monthly</strong>
+            <strong data-lang-inline="de">Monatlich</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-card">
+        <div class="action-img sand">🌱</div>
+        <div class="action-body">
+          <div class="action-tag" data-lang-inline="ar">بيئة • صحة</div>
+          <div class="action-tag" data-lang-inline="en">Environment • Health</div>
+          <div class="action-tag" data-lang-inline="de">Umwelt • Gesundheit</div>
+          <h3 data-lang="ar">مبادرات بيئية بالواحة</h3>
+          <h3 data-lang="en">Environmental Initiatives in the Oasis</h3>
+          <h3 data-lang="de">Umweltinitiativen in der Oase</h3>
+          <p data-lang="ar">أيام نظافة وتشجير في واحة توزر بمشاركة الشباب المتطوع وشركاء محليين</p>
+          <p data-lang="en">Cleanup and reforestation days in the Tozeur oasis with volunteer youth and local partners</p>
+          <p data-lang="de">Reinigungs- und Aufforstungstage in der Oase Tozeur mit freiwilligen Jugendlichen und lokalen Partnern</p>
+          <div class="action-meta">
+            <span data-lang-inline="ar">🌴 الواحة</span>
+            <span data-lang-inline="en">🌴 The Oasis</span>
+            <span data-lang-inline="de">🌴 Die Oase</span>
+            <strong data-lang-inline="ar">فصلي</strong>
+            <strong data-lang-inline="en">Seasonal</strong>
+            <strong data-lang-inline="de">Saisonal</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-card">
+        <div class="action-img desert">🎓</div>
+        <div class="action-body">
+          <div class="action-tag" data-lang-inline="ar">تدريب • شباب</div>
+          <div class="action-tag" data-lang-inline="en">Training • Youth</div>
+          <div class="action-tag" data-lang-inline="de">Training • Jugend</div>
+          <h3 data-lang="ar">تكوين الكوادر الشبابية</h3>
+          <h3 data-lang="en">Youth Leadership Training</h3>
+          <h3 data-lang="de">Jugendführungstraining</h3>
+          <p data-lang="ar">برامج تأهيل الشباب لتطوير مهاراتهم في القيادة والعمل الجماعي وفق المعايير الأوروبية</p>
+          <p data-lang="en">Youth development programs to build leadership and teamwork skills aligned with European standards</p>
+          <p data-lang="de">Jugendentwicklungsprogramme zum Aufbau von Führungs- und Teamfähigkeiten nach europäischen Standards</p>
+          <div class="action-meta">
+            <span data-lang-inline="ar">🏛️ مراكز الشباب</span>
+            <span data-lang-inline="en">🏛️ Youth centers</span>
+            <span data-lang-inline="de">🏛️ Jugendzentren</span>
+            <strong data-lang-inline="ar">دوري</strong>
+            <strong data-lang-inline="en">Regular</strong>
+            <strong data-lang-inline="de">Regelmäßig</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRUCTURE -->
+<section id="structure">
+  <div class="section-inner">
+    <div style="text-align:center">
+      <div class="section-tag" data-lang-inline="ar">الهيكل التنظيمي</div>
+      <div class="section-tag" data-lang-inline="en">Organization structure</div>
+      <div class="section-tag" data-lang-inline="de">Organisationsstruktur</div>
+      <h2 class="section-title" style="margin:12px 0" data-lang="ar">كيف نعمل؟</h2>
+      <h2 class="section-title" style="margin:12px 0" data-lang="en">How do we operate?</h2>
+      <h2 class="section-title" style="margin:12px 0" data-lang="de">Wie arbeiten wir?</h2>
+    </div>
+    <div class="org-tree">
+      <div class="org-level">
+        <div class="org-node national">
+          <h4 data-lang-inline="ar">🏛️ المنسقة الوطنية</h4>
+          <h4 data-lang-inline="en">🏛️ National Coordinator</h4>
+          <h4 data-lang-inline="de">🏛️ Nationale Koordinatorin</h4>
+          <span data-lang-inline="ar">تونس</span>
+          <span data-lang-inline="en">Tunisia</span>
+          <span data-lang-inline="de">Tunesien</span>
+        </div>
+      </div>
+      <div class="org-connector"></div>
+      <div class="org-level" style="gap:40px">
+        <div class="org-node regional">
+          <h4 data-lang-inline="ar">🗺️ منسقون إقليميون</h4>
+          <h4 data-lang-inline="en">🗺️ Regional Coordinators</h4>
+          <h4 data-lang-inline="de">🗺️ Regionale Koordinatoren</h4>
+          <span data-lang-inline="ar">24 جهة</span>
+          <span data-lang-inline="en">24 regions</span>
+          <span data-lang-inline="de">24 Regionen</span>
+        </div>
+        <div class="org-node regional" style="border-color:var(--sand);background:rgba(200,169,110,0.12)">
+          <h4 style="color:var(--sand)" data-lang-inline="ar">⭐ فرع توزر</h4>
+          <h4 style="color:var(--sand)" data-lang-inline="en">⭐ Tozeur Branch</h4>
+          <h4 style="color:var(--sand)" data-lang-inline="de">⭐ Zweig Tozeur</h4>
+          <span data-lang-inline="ar">منسق جهوي</span>
+          <span data-lang-inline="en">Regional coordinator</span>
+          <span data-lang-inline="de">Regionalkoordinator</span>
+        </div>
+      </div>
+      <div class="org-connector"></div>
+      <div class="org-level">
+        <div class="org-node local">
+          <h4 data-lang-inline="ar">📌 منسقون محليون</h4>
+          <h4 data-lang-inline="en">📌 Local Coordinators</h4>
+          <h4 data-lang-inline="de">📌 Lokale Koordinatoren</h4>
+          <span data-lang-inline="ar">توزر + دقاش + نفطة</span>
+          <span data-lang-inline="en">Tozeur + Degache + Nefta</span>
+          <span data-lang-inline="de">Tozeur + Degache + Nefta</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section id="partners">
+  <div class="section-inner">
+    <div style="text-align:center">
+      <div class="section-tag" data-lang-inline="ar">شراكات دولية</div>
+      <div class="section-tag" data-lang-inline="en">International partnerships</div>
+      <div class="section-tag" data-lang-inline="de">Internationale Partnerschaften</div>
+      <h2 class="section-title" style="margin:12px 0" data-lang="ar">نبحث عن شركاء في ألمانيا 🇩🇪</h2>
+      <h2 class="section-title" style="margin:12px 0" data-lang="en">Seeking partners in Germany 🇩🇪</h2>
+      <h2 class="section-title" style="margin:12px 0" data-lang="de">Partner in Deutschland gesucht 🇩🇪</h2>
+    </div>
+    <div class="partner-intro">
+      <div class="partner-appeal">
+        <h3 data-lang-inline="ar">لماذا تتشارك معنا؟</h3>
+        <h3 data-lang-inline="en">Why partner with us?</h3>
+        <h3 data-lang-inline="de">Warum mit uns partnern?</h3>
+        <p data-lang="ar">نحن نجمع الشباب الأكثر تحفزًا وتأهيلًا، مع خبرة تطوعية تجعلهم مستعدين للاندماج في المجتمع الألماني</p>
+        <p data-lang="en">We gather the most motivated and qualified youth, with volunteer experience that makes them ready to integrate into German society</p>
+        <p data-lang="de">Wir versammeln die motiviertesten und qualifiziertesten Jugendlichen mit Ehrenamtserfahrung, die sie für die Integration in die deutsche Gesellschaft bereit macht</p>
+        <div class="partner-benefits">
+          <div class="benefit">
+            <div class="benefit-dot"></div>
+            <p data-lang="ar">🤝 تعاون ميداني — يمكنكم زيارتنا وتنظيم أنشطة مشتركة في توزر</p>
+            <p data-lang="en">🤝 Field collaboration — you can visit us and organize joint activities in Tozeur</p>
+            <p data-lang="de">🤝 Feldzusammenarbeit — Sie können uns besuchen und gemeinsame Aktivitäten in Tozeur organisieren</p>
+          </div>
+          <div class="benefit">
+            <div class="benefit-dot"></div>
+            <p data-lang="ar">📋 مرشحون موثوقون — نضمن جدية وكفاءة كل مرشح نوجهه إليكم</p>
+            <p data-lang="en">📋 Reliable candidates — we guarantee the seriousness and competence of every candidate we send you</p>
+            <p data-lang="de">📋 Zuverlässige Kandidaten — wir garantieren Ernsthaftigkeit und Kompetenz jedes Kandidaten, den wir Ihnen schicken</p>
+          </div>
+          <div class="benefit">
+            <div class="benefit-dot"></div>
+            <p data-lang="ar">🌍 تأثير حقيقي — شراكتكم تُحدث فرقًا في حياة شباب منطقة نائية</p>
+            <p data-lang="en">🌍 Real impact — your partnership makes a difference in the lives of youth from a remote region</p>
+            <p data-lang="de">🌍 Echte Wirkung — Ihre Partnerschaft macht einen Unterschied im Leben von Jugendlichen aus einer abgelegenen Region</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 class="partner-form" style="font-size:22px;font-weight:700;color:var(--dark);margin-bottom:24px" data-lang="ar">تواصل معنا للشراكة</h3>
+        <h3 class="partner-form" style="font-size:22px;font-weight:700;color:var(--dark);margin-bottom:24px" data-lang="en">Contact us for partnership</h3>
+        <h3 class="partner-form" style="font-size:22px;font-weight:700;color:var(--dark);margin-bottom:24px" data-lang="de">Partnerschaft anfragen</h3>
+        <div>
+          <div class="form-group">
+            <label data-lang-inline="ar">الاسم / المنظمة</label>
+            <label data-lang-inline="en">Name / Organization</label>
+            <label data-lang-inline="de">Name / Organisation</label>
+            <input type="text">
+          </div>
+          <div class="form-group">
+            <label data-lang-inline="ar">البريد الإلكتروني</label>
+            <label data-lang-inline="en">Email address</label>
+            <label data-lang-inline="de">E-Mail-Adresse</label>
+            <input type="email">
+          </div>
+          <div class="form-group">
+            <label data-lang-inline="ar">نوع الشراكة</label>
+            <label data-lang-inline="en">Partnership type</label>
+            <label data-lang-inline="de">Art der Partnerschaft</label>
+            <select>
+              <option data-lang-inline="ar">اختر نوع الشراكة</option>
+              <option data-lang-inline="en">Choose partnership type</option>
+              <option data-lang-inline="de">Partnerschaftsart wählen</option>
+              <option data-lang-inline="ar">جمعية / منظمة</option>
+              <option data-lang-inline="en">Association / NGO</option>
+              <option data-lang-inline="de">Verein / NGO</option>
+              <option data-lang-inline="ar">مؤسسة تعليمية</option>
+              <option data-lang-inline="en">Educational institution</option>
+              <option data-lang-inline="de">Bildungseinrichtung</option>
+              <option data-lang-inline="ar">مؤسسة مهنية</option>
+              <option data-lang-inline="en">Professional institution</option>
+              <option data-lang-inline="de">Berufseinrichtung</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label data-lang-inline="ar">رسالتك</label>
+            <label data-lang-inline="en">Your message</label>
+            <label data-lang-inline="de">Ihre Nachricht</label>
+            <textarea></textarea>
+          </div>
+          <button class="submit-btn" onclick="alert('شكرًا! سنتواصل معك قريبًا / Thank you! / Danke!')">
+            <span data-lang-inline="ar">إرسال الطلب ✉️</span>
+            <span data-lang-inline="en">Send request ✉️</span>
+            <span data-lang-inline="de">Anfrage senden ✉️</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div style="text-align:center">
+      <div class="section-tag" data-lang-inline="ar">تواصل معنا</div>
+      <div class="section-tag" data-lang-inline="en">Contact us</div>
+      <div class="section-tag" data-lang-inline="de">Kontakt</div>
+      <h2 class="section-title" style="margin:12px 0" data-lang="ar">كيف تجدنا؟</h2>
+      <h2 class="section-title" style="margin:12px 0" data-lang="en">How to reach us</h2>
+      <h2 class="section-title" style="margin:12px 0" data-lang="de">Wie erreichen Sie uns?</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-icon" style="background:rgba(45,106,79,0.1)">📘</div>
+        <h4>Facebook</h4>
+        <p data-lang="ar">تابع أنشطتنا وأخبارنا اليومية على صفحتنا الرسمية</p>
+        <p data-lang="en">Follow our daily activities and news on our official page</p>
+        <p data-lang="de">Folgen Sie unseren täglichen Aktivitäten auf unserer offiziellen Seite</p>
+        <br>
+        <a href="https://www.facebook.com/share/17KXiQio8S/" target="_blank">TuniBless Tozeur →</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon" style="background:rgba(26,95,138,0.1)">💬</div>
+        <h4>WhatsApp</h4>
+        <p data-lang="ar">انضم لمجموعة واتساب جهة توزر للحصول على المعلومات الآنية</p>
+        <p data-lang="en">Join the Tozeur WhatsApp group for real-time information</p>
+        <p data-lang="de">Treten Sie der Tozeur-WhatsApp-Gruppe für Echtzeit-Informationen bei</p>
+        <br>
+        <span style="color:var(--sky);font-size:13px;font-weight:500" data-lang-inline="ar">تواصل مع المنسق الجهوي</span>
+        <span style="color:var(--sky);font-size:13px;font-weight:500" data-lang-inline="en">Contact the regional coordinator</span>
+        <span style="color:var(--sky);font-size:13px;font-weight:500" data-lang-inline="de">Regionalkoordinator kontaktieren</span>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon" style="background:rgba(200,169,110,0.15)">📍</div>
+        <h4 data-lang-inline="ar">الموقع</h4>
+        <h4 data-lang-inline="en">Location</h4>
+        <h4 data-lang-inline="de">Standort</h4>
+        <p data-lang="ar">توزر، الجنوب الغربي التونسي — بوابة الصحراء والنخيل</p>
+        <p data-lang="en">Tozeur, Southwest Tunisia — gateway to the desert and palm groves</p>
+        <p data-lang="de">Tozeur, Südwest-Tunesien — Tor zur Wüste und den Palmhainen</p>
+        <br>
+        <span style="color:var(--sky);font-size:13px;font-weight:500">🌴 33°55'N, 8°08'E</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">TuniBless Tozeur</div>
+  <div class="footer-sub" data-lang="ar">جمعية غير ربحية | توزر، تونس | تأسست 2021</div>
+  <div class="footer-sub" data-lang="en">Non-profit association | Tozeur, Tunisia | Founded 2021</div>
+  <div class="footer-sub" data-lang="de">Gemeinnütziger Verein | Tozeur, Tunesien | Gegründet 2021</div>
+  <div class="footer-flags">
+    <span style="color:rgba(254,250,244,0.4);font-size:13px">🇹🇳 Tunisia — 🇩🇪 Deutschland — 🌍 Together</span>
+  </div>
+  <div class="footer-copy">© 2024 TuniBless Tozeur — All rights reserved</div>
+</footer>
+
+<script>
+// Stars
+const starsEl=document.getElementById('stars');
+for(let i=0;i<80;i++){
+  const s=document.createElement('div');
+  s.className='star';
+  s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*70}%;animation-delay:${Math.random()*3}s`;
+  starsEl.appendChild(s);
+}
+
+// Nav scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('main-nav').classList.toggle('scrolled',window.scrollY>80);
+});
+
+// Language switcher
+function setLang(lang,dir,btn){
+  document.body.setAttribute('data-active-lang',lang);
+  document.documentElement.setAttribute('lang',lang);
+  document.documentElement.setAttribute('dir',dir);
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
